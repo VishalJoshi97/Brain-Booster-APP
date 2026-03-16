@@ -13,15 +13,20 @@ const Tab = createBottomTabNavigator();
 export default function MainTabs() {
   return (
     <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: "#4CAF50",
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: {
-          height: 60,
-          paddingBottom: 5,
-        },
-      }}
+      screenOptions={({ route }) => ({
+  headerShown: false,
+  tabBarIcon: ({ color, size }) => {
+    let iconName: any;
+
+    if (route.name === "Home") iconName = "home";
+    else if (route.name === "Train") iconName = "barbell";
+    else if (route.name === "Focus") iconName = "timer";
+    else if (route.name === "Progress") iconName = "stats-chart";
+    else if (route.name === "Profile") iconName = "person";
+
+    return <Ionicons name={iconName} size={size} color={color} />;
+  },
+})}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Train" component={TrainScreen} />
